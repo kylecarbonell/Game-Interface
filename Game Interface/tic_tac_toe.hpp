@@ -9,7 +9,11 @@ const char SPACE = ' ';
 const char X = 'x';
 const char O = 'o';
 
-const string noDone = "1";
+const string noDone = "not done";
+const string not_done = "No";
+const string done = "done";
+const string finished = "done";
+
 char board[ROWS][COLUMNS] =  
 {
     {SPACE, SPACE, SPACE},
@@ -29,9 +33,13 @@ bool checkDiagonals(char board[ROWS][COLUMNS], char piece);
 bool Winner(char board[ROWS][COLUMNS], char piece);
 bool fullBoard(char board[ROWS][COLUMNS]);
 
-string DetermineBoardState (char board[ROWS][COLUMNS]);
+string DetermineBoardStatePvP(char board[ROWS][COLUMNS]);
+string DetermineBoardStatePvC(char board[ROWS][COLUMNS]);
+
 
 void tictactoe();
+void tictactoeplayer();
+void resetBoard(char board[ROWS][COLUMNS]);
 
 
 

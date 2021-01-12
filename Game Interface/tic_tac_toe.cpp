@@ -180,9 +180,8 @@ void computerMove(char board[ROWS][COLUMNS], char piece)
   printBoard(board);
 }
 
-string DetermineBoardStatePlayer(char board[ROWS][COLUMNS])
+string DetermineBoardStatePvP(char board[ROWS][COLUMNS])
 {
-  string finished = "done";
 
   if(Winner(board, X) == true)
   {
@@ -210,23 +209,22 @@ string DetermineBoardStatePlayer(char board[ROWS][COLUMNS])
   return finished;
 }
 
-string DetermineBoardState(char board[ROWS][COLUMNS])
+string DetermineBoardStatePvC(char board[ROWS][COLUMNS])
 { 
-  string not_done = "No";
   
   if(Winner(board, X) == true)
   {
     cout << "HAHAAH THE COMPUTER SUCKS!! PLAYER WINS" << endl;
     cout << endl;
 
-    return "0";
+    return done;
   }
   else if (Winner(board, O) == true)
   {
     cout << "BRO YOU SUCK! U LOST TO A BOT! YOU SUCK COMPUTER WINS!" << endl;
     cout << endl;
 
-    return "0";
+    return done;
   }
   else if (fullBoard(board) == true)
   {
@@ -234,7 +232,7 @@ string DetermineBoardState(char board[ROWS][COLUMNS])
     cout << "Its a draw" << endl;
     cout << endl;
 
-    return "0";
+    return done;
   }
 
   return not_done;
@@ -248,11 +246,11 @@ void tictactoe()
     do
     {
       playerMove(board, X);
-      outcome = DetermineBoardState(board);
+      outcome = DetermineBoardStatePvC(board);
       computerMove(board, O);
-      outcome = DetermineBoardState(board);
+      outcome = DetermineBoardStatePvC(board);
 
-    }while(outcome == "No");
+    }while(outcome == not_done);
 
    Again();
 }
@@ -265,18 +263,18 @@ void tictactoeplayer()
     do
     {
       playerMove(board, X);
-      out = DetermineBoardStatePlayer(board);
-      if (out == "1")
+      out = DetermineBoardStatePvP(board);
+      if (out == noDone)
       {
         break; 
       }
       playerMove2(board, O);
-      out = DetermineBoardStatePlayer(board);
-      if (out == "2")
+      out = DetermineBoardStatePvP(board);
+      if (out == noDone)
       {
         break;
       }
-    }while(out == "done");  
+    }while(out == done);  
     
     Again();
 }
@@ -293,7 +291,8 @@ void Again()
 
     if(play_again == 'c')
     {
-        tictactoe();
+      resetBoard(board);
+      tictactoe();
     }
     else if (play_again == 'p')
     {
@@ -309,4 +308,15 @@ void Again()
     {
         cout << "Please choose y or n or m" << endl;
     }
+}
+
+void resetBoard(char board[ROWS][COLUMNS])
+{
+  for(int i = 0; i < 3; i++)
+  {
+    for(int j = 0; j < 3; j++)
+    { 
+      board[i][j] = SPACE;
+    }
+  }
 }
